@@ -13,8 +13,12 @@ b0 = [[0]]
 b1 = [[1]]
 b2 = [[2]]
 
-# warning, look at the loss fn! Here we use the MSE loss
-# Compare to backward_pass_mlp_no_bias.py
+# warning, look at the activation functions!
+
+# Loss:
+# loss_fn = lambda y_hat, y: 0.5 * torch.sum((y_hat - y)**2)
+# loss_fn = lambda y_hat, y: torch.abs(y_hat - y)
+loss_fn = lambda y_hat, y: -y * torch.log(torch.sigmoid(y_hat)) - (1 - y) * torch.log(1 - torch.sigmoid(y_hat))
 
 
 class MLP(nn.Module):
@@ -81,7 +85,7 @@ print(f" x          = {x}")
 pred = mlp(x)
 
 # backward pass
-loss = 0.5 * torch.sum((pred - y)**2)
+loss = loss_fn(pred, y)
 print(f" loss       = {loss}")
 print("\nBackward Pass:")
 loss.backward()
