@@ -2,13 +2,18 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-x = [[20]]
-y = [[-3]]
+x = [[10.]]
+y = [[0.]]
 
-w0 = [[-0.5]]
-w1 = [[-0.5]]
-w2 = [[0.5]]
+w0 = [[-1.]]
+w1 = [[5.]]
+w2 = [[1.]]
 
+# uses PReLU!
+prelu_a = 0.1
+
+# loss_fn = lambda y_hat, y: 0.5 * torch.sum((y_hat - y)**2)
+loss_fn = lambda y_hat, y: -y * torch.log(torch.sigmoid(y_hat)) - (1 - y) * torch.log(1 - torch.sigmoid(y_hat))
 
 class MLP(nn.Module):
 
@@ -16,9 +21,9 @@ class MLP(nn.Module):
         super().__init__()
 
         self.fc0 = nn.Linear(1, 1, bias=False)
-        self.g0 = nn.PReLU(init=0.1)
+        self.g0 = nn.PReLU(init=prelu_a)
         self.fc1 = nn.Linear(1, 1, bias=False)
-        self.g1 = nn.PReLU(init=0.1)
+        self.g1 = nn.PReLU(init=prelu_a)
         self.fc2 = nn.Linear(1, 1, bias=False)
 
         self.fc0.weight.data = torch.tensor(w0).float().reshape_as(self.fc0.weight.data)
@@ -68,7 +73,7 @@ print(f" x          = {x}")
 pred = mlp(x)
 
 # backward pass
-loss = 0.5 * torch.sum((pred - y)**2)
+loss = loss_fn(pred, y)
 print(f" loss       = {loss}")
 print("\nBackward Pass:")
 loss.backward()

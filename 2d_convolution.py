@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 
-conv = nn.Conv2d(3, 10, kernel_size=(5, 5), stride=1, padding=0, bias=False)
+conv = nn.Conv2d(3, 10, kernel_size=(5, 5), stride=1, padding=0, bias=False, dilation=1)
 
 # data batch
 B = 8
