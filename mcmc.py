@@ -1,6 +1,6 @@
 import numpy as np
 
-# exam 2022, task 54
+# exam 2023, task 54
 
 def target_dist(i):
     return np.exp(-np.abs(i))
