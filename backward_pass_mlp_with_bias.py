@@ -13,6 +13,9 @@ b0 = [[0]]
 b1 = [[1]]
 b2 = [[2]]
 
+# warning, look at the loss fn! Here we use the MSE loss
+# Compare to backward_pass_mlp_no_bias.py
+
 
 class MLP(nn.Module):
 
