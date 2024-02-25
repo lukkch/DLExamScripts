@@ -20,7 +20,6 @@ values = np.array([
 d_k = 4
 
 
-
 assert(len(queries) == len(keys) == len(values))
 
 before_softmax = (queries @ np.transpose(keys)) / np.sqrt(d_k)
