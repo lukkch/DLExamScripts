@@ -40,5 +40,5 @@ if(output_volume_check != False):
     # Create a numpy array of zeros with the specified dimensions
     zeros_array = torch.ones(array_shape)
     out = output_volume_check(zeros_array)
-    print(f"\nOutput volume size of {model._get_name()}:")
+    print(f"\nOutput volume size of {output_volume_check._get_name()}:")
     print(out.shape)
